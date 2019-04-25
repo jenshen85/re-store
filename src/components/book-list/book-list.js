@@ -8,7 +8,7 @@ import withBookstoreService from '../hoc';
 import { fetchBooks } from '../../actions';
 import { compose } from '../../utils';
 
-class BookList extends Component {
+class BookListContainer extends Component {
 
   componentDidMount() {
     this.props.fetchBooks();
@@ -25,15 +25,23 @@ class BookList extends Component {
       return <Spinner />
     }
 
-    const items = books.map((book) => <li key={book.id}>
-                                        <BookListItem book={ book } />
-                                      </li>)
-    return (
-      <ul className='book-list'>
-        { items }
-      </ul>
-    )
+    return <BookList books={ books } />
   }
+}
+
+const BookList = ({ books }) => {
+  const items = books.map((book) => {
+    return (
+      <li key={book.id}>
+        <BookListItem book={ book } />
+      </li>
+    )
+  })
+  return (
+  <ul className='book-list'>
+    { items }
+  </ul>
+  )
 }
 
 const mapStateToProps = ({ books, loading, error }) => {
@@ -54,4 +62,4 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps)
-)(BookList);
+)(BookListContainer);
