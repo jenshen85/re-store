@@ -1,4 +1,4 @@
-import { BOOKS_LOADED, BOOKS_REQUESTED, BOOKS_ERROR } from '../constants';
+import { FETCH_BOOKS_FAILURE, FETCH_BOOKS_REQUEST, FETCH_BOOKS_SUCCESS } from '../constants';
 
 const initialState = {
   books: [],
@@ -8,19 +8,19 @@ const initialState = {
 
 const reduser = (state = initialState, action) => {
   switch (action.type) {
-    case BOOKS_REQUESTED:
+    case FETCH_BOOKS_REQUEST:
       return {
         books: [],
         loading: true,
         error: null,
       }
-    case BOOKS_LOADED:
+    case FETCH_BOOKS_SUCCESS:
       return {
         books: action.payload,
         loading: false,
         error: null,
       }
-    case BOOKS_ERROR:
+    case FETCH_BOOKS_FAILURE:
       return {
         books: [],
         loading: false,
