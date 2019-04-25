@@ -1,4 +1,9 @@
-import { FETCH_BOOKS_FAILURE, FETCH_BOOKS_REQUEST, FETCH_BOOKS_SUCCESS } from '../constants';
+import {
+  FETCH_BOOKS_FAILURE,
+  FETCH_BOOKS_REQUEST,
+  FETCH_BOOKS_SUCCESS,
+  BOOK_ADDED_TO_CART,
+  } from '../constants';
 
 export const booksLoaded = (newBooks) => {
   return {
@@ -17,6 +22,13 @@ export const booksError = (error) => {
   return {
     type: FETCH_BOOKS_FAILURE,
     payload: error,
+  }
+}
+
+export const bookAddedToCart = (bookId) => {
+  return {
+    type: BOOK_ADDED_TO_CART,
+    payload: bookId,
   }
 }
 

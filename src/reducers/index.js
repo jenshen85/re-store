@@ -1,24 +1,16 @@
-import { FETCH_BOOKS_FAILURE, FETCH_BOOKS_REQUEST, FETCH_BOOKS_SUCCESS } from '../constants';
+import {
+  FETCH_BOOKS_FAILURE,
+  FETCH_BOOKS_REQUEST,
+  FETCH_BOOKS_SUCCESS,
+  BOOK_ADDED_TO_CART,
+  } from '../constants';
 
 const initialState = {
   books: [],
   loading: true,
   error: null,
-  cartItems: [
-    {
-      id: 1,
-      title: 'some',
-      count: 1,
-      total: 30,
-    },
-    {
-      id: 2,
-      title: 'some_2',
-      count: 4,
-      total: 54,
-    },
-  ],
-  orderTotal: 210
+  cartItems: [],
+  orderTotal: 0,
 }
 
 const reduser = (state = initialState, action) => {
@@ -43,6 +35,22 @@ const reduser = (state = initialState, action) => {
         books: [],
         loading: false,
         error: action.payload,
+      }
+    case BOOK_ADDED_TO_CART:
+      const bookId = action.payload
+      const book = state.books.find(({id}) => id === bookId)
+      const newItem = {
+        id: bookId,
+        title: book.title,
+        count: 1,
+        total: book.price,
+      }
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems,
+          newItem,
+        ]
       }
     default:
       return state
